@@ -1,14 +1,11 @@
-package com.example.project.entity;
+package com.example.project.model.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +19,6 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(name = "name")
     private EnumRole name;
-
 
     @Override
     public boolean equals(Object o) {

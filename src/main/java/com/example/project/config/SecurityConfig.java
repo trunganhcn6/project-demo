@@ -8,7 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.Account;
+import org.springframework.security.core.userdetails.StoreAcc;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     @Autowired
-    private AuthenticationProvider authenticationProvider;
+    private AuthenticationProvider brandAuthenProvider;
 
     @Configuration
     @Order(1)
@@ -31,7 +31,7 @@ public class SecurityConfig {
 
 //        @Bean
 //        public UserDetailsService app1UserDetailsService(){
-//            UserDetails user = Account.withUsername().
+//            UserDetails user = StoreAcc.withUsername().
 //        }
     }
 

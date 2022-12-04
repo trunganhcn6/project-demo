@@ -1,6 +1,7 @@
 package com.example.project.jwt;
 
-import com.example.project.entity.AccountDetailsImpl;
+import com.example.project.model.entity.BAccDetailsImpl;
+import com.example.project.model.entity.SAccDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,22 +27,24 @@ public class JwtProvider {
 
 /************************************************************************************************************************/
 
+    //Generate Store JWT
     public String generateStoreJwt(Authentication authentication){
-        AccountDetailsImpl accountDetails = (AccountDetailsImpl) authentication.getPrincipal();
+        SAccDetailsImpl storeAccDetails = (SAccDetailsImpl) authentication.getPrincipal();
 
         //add customClaim role = STORE
         customClaim.clear();
         customClaim.put("role","STORE");
 
-        return Jwts.builder().setSubject(accountDetails.getUsername())
+        return Jwts.builder().setSubject(storeAccDetails.getUsername())
                 .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
                 .addClaims(customClaim)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+    //Generate Brand JWT
     public String generateBrandJwt(Authentication authentication){
-        AccountDetailsImpl brandAccDetails = (AccountDetailsImpl) authentication.getPrincipal();
+        BAccDetailsImpl brandAccDetails = (BAccDetailsImpl) authentication.getPrincipal();
 
         //add customClaim role = BRAND
         customClaim.clear();
@@ -55,6 +58,7 @@ public class JwtProvider {
                 .compact();
     }
 
+    //Parse claims
     public Jws<Claims> parseClaim(String token){
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
     }

@@ -1,6 +1,6 @@
-package com.example.project.dto;
+package com.example.project.model.dto;
 
-import com.example.project.entity.BrandProduct;
+import com.example.project.model.entity.BrandProduct;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")

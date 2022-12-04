@@ -1,7 +1,8 @@
-package com.example.project.entity;
+package com.example.project.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,28 +10,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-/* By default, Spring Security uses UserDetails to store all user info (incl. account status), so AccountDetailsImpl -> Account info */
+/* By default, Spring Security uses UserDetails to store all user info (incl. storeAcc status), so SAccDetailsImpl -> StoreAcc info */
 @AllArgsConstructor @Data
-public class AccountDetailsImpl implements UserDetails {
-    private Account account;
+public class SAccDetailsImpl implements UserDetails {
+    private StoreAcc storeAcc;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (account.getStore() != null && account.getBrand() == null)
             return Collections.singleton(new SimpleGrantedAuthority("STORE"));
-        else if (account.getStore() == null && account.getBrand() != null)
-            return Collections.singleton(new SimpleGrantedAuthority("BRAND"));
-        else return null;
     }
 
     @Override
     public String getPassword() {
-        return account.getPassword();
+        return storeAcc.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return account.getUsername();
+        return storeAcc.getUsername();
     }
 
     @Override

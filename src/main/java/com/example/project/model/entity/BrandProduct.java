@@ -1,4 +1,4 @@
-package com.example.project.entity;
+package com.example.project.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;

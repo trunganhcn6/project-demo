@@ -1,5 +1,6 @@
-package com.example.project.entity;
+package com.example.project.model.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,21 +12,24 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter
-public class Brand {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Store {
+    @Setter(AccessLevel.NONE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Size(min = 5, max = 100)
-    @Column(unique = true)
     @NotBlank
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brand", orphanRemoval = true)
-    private Set<Account> accounts = new LinkedHashSet<>();
-
     @Size(min = 5, max = 100)
-    @NotBlank
     @Column(name = "address", nullable = false, unique = true)
     private String address;
+
+
+    @OneToMany(mappedBy = "store", orphanRemoval = true)
+    private Set<StoreAcc> storeAccs = new LinkedHashSet<>();
 
 }

@@ -1,9 +1,10 @@
-package com.example.project.dto;
+package com.example.project.model.dto;
 
-import com.example.project.entity.Color;
-import com.example.project.entity.RequestDetails;
-import com.example.project.entity.Size;
-import com.example.project.entity.Storage;
+import com.example.project.model.entity.BrandProduct;
+import com.example.project.model.entity.Color;
+import com.example.project.model.entity.RequestDetails;
+import com.example.project.model.entity.Size;
+import com.example.project.model.entity.Storage;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * A DTO for the {@link com.example.project.entity.BrandProduct} entity
+ * A DTO for the {@link BrandProduct} entity
  */
 @Data
 public class BrandProductDto implements Serializable {

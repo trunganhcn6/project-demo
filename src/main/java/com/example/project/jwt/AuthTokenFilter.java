@@ -1,6 +1,6 @@
 package com.example.project.jwt;
 
-import com.example.project.entity.AccountDetailsServiceImpl;
+import com.example.project.model.entity.SAccDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtProvider jwtProvider;
 
     @Autowired
-    private AccountDetailsServiceImpl accountDetailsService;
+    private SAccDetailsServiceImpl sAccDetailsService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -35,7 +35,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (jwt != null && jwtProvider.validateJwt(jwt)) {
                 String username = jwtProvider.getUsernameFromJwt(jwt);
-                UserDetails userDetails = accountDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = sAccDetailsService.loadUserByUsername(username);
 
                 if (jwtProvider.getRoleFromJwt(jwt).equals("STORE")) {
                     UsernamePasswordAuthenticationToken authenticationToken =

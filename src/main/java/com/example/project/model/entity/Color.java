@@ -1,4 +1,4 @@
-package com.example.project.entity;
+package com.example.project.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter
-public class Size {
+public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,7 +20,7 @@ public class Size {
     @Column(name = "username", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "size", orphanRemoval = true)
+    @OneToMany(mappedBy = "color", orphanRemoval = true)
     private Set<BrandProduct> brandProducts = new LinkedHashSet<>();
 
 }

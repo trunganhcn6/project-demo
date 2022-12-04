@@ -1,12 +1,13 @@
 package com.example.project.controller;
 
-import com.example.project.dto.AccountDto;
-import com.example.project.entity.AccountDetailsImpl;
+import com.example.project.model.dto.StoreAccDto;
+import com.example.project.model.entity.SAccDetailsImpl;
 import com.example.project.jwt.JwtProvider;
-import com.example.project.repository.AccountRepository;
+import com.example.project.repository.StoreAccRepository;
 import com.example.project.repository.BrandRepository;
 import com.example.project.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,12 +16,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping()
-public class AccountController {
+@RequestMapping("/store")
+public class StoreAccController {
     /* authenticate { username, password }
     update SecurityContext using Authentication object
     generate JWT
@@ -30,7 +29,7 @@ public class AccountController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    AccountRepository accountRepository;
+    StoreAccRepository storeAccRepository;
 
     @Autowired
     StoreRepository storeRepository;
@@ -46,15 +45,18 @@ public class AccountController {
 
     /************************************************************************************************************************/
 
-    @PostMapping("/login")
-    public String authenticate(@RequestBody AccountDto accountDto){
+    @PostMapping("/store-login")
+    public ResponseEntity<?> authenticate(@RequestBody StoreAccDto storeAccDto){
         Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountDto.getUsername(), accountDto.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(storeAccDto.getUsername(), storeAccDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        AccountDetailsImpl accountDetails = (AccountDetailsImpl) authentication.getPrincipal();
+        SAccDetailsImpl sAccDetails = (SAccDetailsImpl) authentication.getPrincipal();
 
-        String role = accountDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toString();
+        String role = sAccDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toString();
+        //List<String> role = sAccDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
-        //String jwt = jwtProvider.
+        String jwt = jwtProvider.generateStoreJwt(authentication);
+
+        return ResponseEntity.ok(jwt);
     }
 }

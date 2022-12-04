@@ -6,8 +6,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/* Response after login successfully */
 @AllArgsConstructor
-public class JwtResponse {
+public class LoginResponse {
     @Getter
     @Setter
     private String token;
